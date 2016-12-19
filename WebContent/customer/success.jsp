@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 	登陆成功
 	<br>
 	<a href="<%=request.getContextPath()%>/customer/login.jsp">登录</a>

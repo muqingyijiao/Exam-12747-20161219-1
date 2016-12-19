@@ -1,12 +1,15 @@
 package cn.yijiao.film.web;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import cn.yijiao.film.entity.Film;
 import cn.yijiao.film.service.FilmService;
@@ -34,6 +37,12 @@ public class FilmServlet extends HttpServlet {
 			req.setAttribute("list", list);
 			req.getRequestDispatcher("/film/filmList.jsp").forward(req, resp);
 			// System.out.println(list);
+		}else if(submitFlag.equals("toAdd")){
+			
+			List<String> lname = filmService.getLanguage();
+			req.setAttribute("lname", lname);
+			req.getRequestDispatcher("/film/add.jsp").forward(req, resp);
+			
 		} else if (submitFlag.equals("add")) {
 
 			Film film = new Film();
@@ -46,7 +55,8 @@ public class FilmServlet extends HttpServlet {
 			filmService.add(film);
 			req.getRequestDispatcher("/film?submitFlag=toList").forward(req, resp);
 		} else if (submitFlag.equals("toUpdate")) {
-			
+			List<String> lname = filmService.getLanguage();
+			req.setAttribute("lname", lname);
 			String filmId = req.getParameter("film_id");
 			Film film = filmService.getByFilmId(Integer.parseInt(filmId));
 			req.setAttribute("film", film);
@@ -70,10 +80,21 @@ public class FilmServlet extends HttpServlet {
 		}
 		
 		else if(submitFlag.equals("toDelete")){
+			
 			//System.out.println("ddd");
 			String filmId = req.getParameter("film_id");
 			//System.out.println(filmId);
-			filmService.delete(Integer.parseInt(filmId));
+			try {
+				filmService.delete(Integer.parseInt(filmId));
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}catch (MySQLIntegrityConstraintViolationException e) {
+				req.setAttribute("errorMsg", "存在外键约束不能删除！！！");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			req.getRequestDispatcher("/film?submitFlag=toList").forward(req, resp);
 			
 		}

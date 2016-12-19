@@ -36,7 +36,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>loginFliter</filter-name>
-		<url-pattern>/login</url-pattern>
+		<url-pattern>/customer/*</url-pattern>
 	</filter-mapping>
 
 	<filter>

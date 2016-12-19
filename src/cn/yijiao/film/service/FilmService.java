@@ -1,6 +1,7 @@
 package cn.yijiao.film.service;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import cn.yijiao.customer.entity.Customer;
@@ -37,16 +38,22 @@ public class FilmService {
 		Connection conn = new JDBCUtil().getConnection();
 		new FilmDaoFactory().getFilmDao().update(conn, film);
 	}
-	
-	public void delete(int filmId) {
+
+	public void delete(int filmId) throws SQLException {
 		Connection conn = new JDBCUtil().getConnection();
 		new FilmDaoFactory().getFilmDao().delete(conn, filmId);
 	}
-	
-//	public void deleteCascade(int filmId){
-//		Connection conn = new JDBCUtil().getConnection();
-//		
-//		new FilmDaoFactory().getFilmDao().delete(conn, filmId);
-//
-//}
+
+	public List<String> getLanguage() {
+		Connection conn = new JDBCUtil().getConnection();
+
+		return new FilmDaoFactory().getFilmDao().getLanguage(conn);
+
+	}
+	// public void deleteCascade(int filmId){
+	// Connection conn = new JDBCUtil().getConnection();
+	//
+	// new FilmDaoFactory().getFilmDao().delete(conn, filmId);
+	//
+	// }
 }

@@ -1,5 +1,8 @@
 数据库用户名：root
 数据库用户密码：root
+
+数据库配置信息在"dbconfig.properties"中，"dbconfig.properties"在src目录下，
+在JDBCUtil中加载配置文件，得到数据库信息，连接数据库
 运行流程：
 （1）：首先页面加载index.jsp（点击用户登录）页面，
                从index.jsp（http://localhost/Exam-12747-20161219-1/index.jsp）页面到登录界面，

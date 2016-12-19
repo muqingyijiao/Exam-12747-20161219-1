@@ -25,10 +25,11 @@ public class CustomerFilter implements Filter{
 		HttpServletResponse response = (HttpServletResponse)resp;
 		String loginFlag = (String) request.getSession().getAttribute("loginFlag");
 		if(loginFlag==null || loginFlag == "" || loginFlag.equals("error_login")){
-			
 			request.setAttribute("msg", "您尚未登录，请先登录");
-			chain.doFilter(request, response);
+			req.getRequestDispatcher("/customer/login.jsp").forward(req, resp);
+			return;
 		}
+		chain.doFilter(request, response);
 	}
 
 	@Override

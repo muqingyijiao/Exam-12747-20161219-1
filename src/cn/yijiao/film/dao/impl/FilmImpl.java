@@ -81,28 +81,17 @@ public class FilmImpl implements FilmDao {
 	}
 	
 	@Override
-	public void delete(Connection conn, int filmId) {
+	public void delete(Connection conn, int filmId) throws SQLException {
 		// delete from film_text t,film_category c,film_actor a,film f where
 		// t.film_id=
 		// f.film_id and c.film_id
 		// = f.film_id and a.film_id = f.film_id and  f.film_id=?
 		
 		String sql = "delete from film where film_id=?";
-		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, filmId);
 			ps.execute();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+			conn.close();
 
 	}
 
@@ -184,6 +173,38 @@ public class FilmImpl implements FilmDao {
 			}
 		}
 		return id;
+	}
+
+	@Override
+	public List<String> getLanguage(Connection conn) {
+
+		String sql = "select name from language";
+		List<String> list = new ArrayList<>();
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String name = rs.getString("name");
+				list.add(name);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public void deleteCascade(Connection conn, int filmId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	// 测试代码

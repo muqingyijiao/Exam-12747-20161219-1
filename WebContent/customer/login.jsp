@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 	<form action="<%=request.getContextPath()%>/login">
 		用户名：<input type="text" name="customerName"><br> <input
 			type="submit" value="提交">

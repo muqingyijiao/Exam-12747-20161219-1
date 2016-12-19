@@ -8,6 +8,16 @@
 <link rel="stylesheet" type="text/css"></link>
 </head>
 <body>
+	<div style="color: red;text-align: center;size: 23">
+		<%
+			String errorMsg = (String) request.getAttribute("errorMsg");
+			if (errorMsg != null) {
+		%>
+		<%=errorMsg%>
+		<%
+			}
+		%>
+	</div>
 	<form action="">
 		<table align="center" id="table" width="80%" bordercolor="#abcdef"
 			border="1">
@@ -16,7 +26,7 @@
 			</tr>
 			<tr align="center">
 				<td colspan="6"><input type="button" value="新增"
-					onclick="window.location.href='film/add.jsp'" /></td>
+					onclick="window.location.href='${pageContext.request.contextPath }/film?submitFlag=toAdd'" /></td>
 			</tr>
 			<tr>
 				<td align="center">film_id</td>

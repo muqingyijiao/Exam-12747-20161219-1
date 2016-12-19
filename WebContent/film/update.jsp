@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -33,15 +34,12 @@
 			<tr>
 				<td align="center">language</td>
 				<td align="center"><select name="language"
-					style="width: 150px;"><option value="English"
-							selected="selected">English</option>
-						<option value="Italian">Italian</option>
-						<option value="Japanese">Japanese</option>
-						<option value="Mandarin">Mandarin</option>
-						<option value="French">French</option>
-						<option value="German">German</option>
-						
-						</select></td>
+					style="width: 150px;">
+						<c:forEach items="${lname }" var="name">
+							<option value="${name}"
+								<c:if test="${film.language eq name}">selected="selected"</c:if>>${name}</option>
+						</c:forEach>
+				</select></td>
 			</tr>
 			<tr>
 				<td align="center" colspan="2"><input type="submit" value="修改">&nbsp;&nbsp;

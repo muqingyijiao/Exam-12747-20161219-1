@@ -20,13 +20,10 @@ public class EncodingFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
-		System.out.println("ddddddddddddddddd");
 		encoding = fConfig.getInitParameter("encoding");
-		if(encoding == null){
+		if(encoding==null){
 			System.out.println("请先设置编码方式");
 		}
-		
 	}
 
     /**
